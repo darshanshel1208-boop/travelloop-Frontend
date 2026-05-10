@@ -1,0 +1,50 @@
+# Backend files
+backend/node_modules/
+backend/.env
+backend/.env.local
+backend/.env.*.local
+
+# Frontend
+node_modules/
+.DS_Store
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Database
+*.db
+*.sqlite
+mongo-data/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build
+dist/
+build/
+out/
+
+# Package manager
+package-lock.json
+yarn.lock

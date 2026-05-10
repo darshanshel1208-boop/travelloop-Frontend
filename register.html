@@ -71,6 +71,17 @@
 
                     <div class="row">
                       <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label fw-medium">Password</label>
+                        <input type="password" class="form-control" id="password" minlength="6" placeholder="Min 6 characters" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="confirmPassword" class="form-label fw-medium">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" minlength="6" required>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
                         <label for="city" class="form-label fw-medium">City</label>
                         <input type="text" class="form-control" id="city">
                       </div>
@@ -85,7 +96,9 @@
                       <textarea class="form-control" id="additionalInfo" rows="3" placeholder="Tell us a bit about your travel preferences..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3 primary-btn-shadow btn-lg">Register User</button>
+                    <div id="registerError" class="alert alert-danger d-none py-2 fs--1" role="alert"></div>
+                    <div id="registerSuccess" class="alert alert-success d-none py-2 fs--1" role="alert"></div>
+                    <button type="submit" class="btn btn-primary w-100 mb-3 primary-btn-shadow btn-lg" id="registerBtn">Register User</button>
                     <div class="text-center">
                       <p class="fs--1 mb-0">Already have an account? <a href="login.html" class="text-decoration-none">Login</a></p>
                     </div>
@@ -103,15 +116,75 @@
     <script src="vendors/is/is.min.js"></script>
     <script src="assets/js/theme.js"></script>
     <script>
-      document.getElementById('registerForm').addEventListener('submit', function(e) {
+      const API_BASE = '/api';
+
+      document.getElementById('registerForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        const email = document.getElementById('email').value;
         const firstName = document.getElementById('firstName').value;
-        if (email) {
-          localStorage.setItem('traveloop_user', JSON.stringify({ email: email, name: firstName }));
-          window.location.href = 'dashboard.html';
+        const lastName = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorEl = document.getElementById('registerError');
+        const successEl = document.getElementById('registerSuccess');
+        const btn = document.getElementById('registerBtn');
+
+        errorEl.classList.add('d-none');
+        successEl.classList.add('d-none');
+
+        // Client-side validation
+        if (password !== confirmPassword) {
+          errorEl.textContent = 'Passwords do not match.';
+          errorEl.classList.remove('d-none');
+          return;
+        }
+        if (password.length < 6) {
+          errorEl.textContent = 'Password must be at least 6 characters.';
+          errorEl.classList.remove('d-none');
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creating account...';
+
+        try {
+          const res = await fetch(`${API_BASE}/auth/signup`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: `${firstName} ${lastName}`.trim(), email, password })
+          });
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.message || 'Registration failed');
+          }
+
+          successEl.textContent = 'Account created successfully! Redirecting to login...';
+          successEl.classList.remove('d-none');
+          setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+        } catch (err) {
+          // Fallback to localStorage if backend/DB is down
+          console.warn('Backend error, falling back to localStorage auth:', err);
+          
+          const users = JSON.parse(localStorage.getItem('traveloop_users') || '[]');
+          if (users.find(u => u.email === email)) {
+            errorEl.textContent = 'An account with this email already exists (Local Mode).';
+            errorEl.classList.remove('d-none');
+            btn.disabled = false;
+            btn.innerHTML = 'Register User';
+            return;
+          }
+
+          const newUser = { id: Date.now().toString(), name: `${firstName} ${lastName}`.trim(), email: email.toLowerCase(), password };
+          users.push(newUser);
+          localStorage.setItem('traveloop_users', JSON.stringify(users));
+
+          successEl.textContent = 'Account created successfully (Offline Mode)! Redirecting...';
+          successEl.classList.remove('d-none');
+          setTimeout(() => { window.location.href = 'login.html'; }, 1500);
         }
       });
     </script>
   </body>
 </html>
+

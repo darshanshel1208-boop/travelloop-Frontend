@@ -85,24 +85,45 @@
     <script src="vendors/bootstrap/bootstrap.min.js"></script>
     <script src="vendors/is/is.min.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/api.js"></script>
     <script>
-      document.getElementById('createTripForm').addEventListener('submit', function(e) {
+      document.getElementById('createTripForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+        const btn = this.querySelector('button[type="submit"]');
         const tripData = {
-          name: document.getElementById('tripName').value,
+          tripName: document.getElementById('tripName').value,
           startDate: document.getElementById('startDate').value,
           endDate: document.getElementById('endDate').value,
-          description: document.getElementById('tripDescription').value,
-          id: Date.now().toString()
+          description: document.getElementById('tripDescription').value
         };
-        
-        let trips = JSON.parse(localStorage.getItem('traveloop_trips') || '[]');
-        trips.push(tripData);
-        localStorage.setItem('traveloop_trips', JSON.stringify(trips));
-        
-        // Redirect to itinerary builder
-        window.location.href = `itinerary.html?id=${tripData.id}`;
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creating trip...';
+
+        try {
+          const result = await TraveloopAPI.createTrip(tripData);
+          if (result && result.data) {
+            showToast('Trip created successfully!', 'success');
+            window.location.href = `itinerary.html?id=${result.data._id}`;
+            return;
+          }
+          throw new Error('Backend unavailable');
+        } catch {
+          // Fallback to localStorage
+          const localTrip = {
+            ...tripData,
+            name: tripData.tripName,
+            id: Date.now().toString(),
+            _id: Date.now().toString(),
+            stops: []
+          };
+          let trips = JSON.parse(localStorage.getItem('traveloop_trips') || '[]');
+          trips.push(localTrip);
+          localStorage.setItem('traveloop_trips', JSON.stringify(trips));
+          window.location.href = `itinerary.html?id=${localTrip.id}`;
+        }
       });
     </script>
   </body>
 </html>
+

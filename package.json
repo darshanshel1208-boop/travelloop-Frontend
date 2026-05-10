@@ -1,0 +1,34 @@
+{
+  "name": "travel-loop-fullstack",
+  "version": "1.0.0",
+  "description": "Travel Loop - Full Stack Travel Portal Application",
+  "main": "backend/index.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "backend": "cd backend && npm install && npm start",
+    "dev": "cd backend && npm install && npm start",
+    "install-all": "cd backend && npm install",
+    "backend:install": "cd backend && npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "travel",
+    "trip",
+    "portal",
+    "fullstack",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {}
+
+}

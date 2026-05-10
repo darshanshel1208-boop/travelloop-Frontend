@@ -146,28 +146,53 @@
     <script src="vendors/is/is.min.js"></script>
     <script src="assets/js/theme.js"></script>
     <script>
+      const STORAGE_KEY = 'traveloop_packing_state';
+
+      // Load saved state
+      function loadState() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+        catch { return {}; }
+      }
+
+      function saveState() {
+        const state = {};
+        document.querySelectorAll('.item-check').forEach(cb => {
+          state[cb.id] = cb.checked;
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      // Restore checkbox states from localStorage
+      const savedState = loadState();
+      document.querySelectorAll('.item-check').forEach(cb => {
+        if (savedState[cb.id]) cb.checked = true;
+      });
+
       function updateProgress() {
         const checkboxes = document.querySelectorAll('.item-check');
         const total = checkboxes.length;
         const checked = document.querySelectorAll('.item-check:checked').length;
-        
+
         document.getElementById('progressText').innerText = `${checked}/${total} items packed`;
-        document.getElementById('packingProgress').style.width = `${(checked/total)*100}%`;
+        document.getElementById('packingProgress').style.width = `${total > 0 ? (checked/total)*100 : 0}%`;
 
         // Update category counts and strikethrough
-        ['doc', 'cloth', 'elec'].forEach(cat => {
+        ['doc', 'cloth', 'elec', 'custom'].forEach(cat => {
           const catGroup = document.querySelector(`.checklist-group[data-category="${cat}"]`);
           if(catGroup) {
             const catTotal = catGroup.querySelectorAll('.item-check').length;
             const catChecked = catGroup.querySelectorAll('.item-check:checked').length;
-            document.getElementById(`catCount${cat.charAt(0).toUpperCase() + cat.slice(1)}`).innerText = `${catChecked}/${catTotal}`;
-            
+            const countEl = document.getElementById(`catCount${cat.charAt(0).toUpperCase() + cat.slice(1)}`);
+            if (countEl) countEl.innerText = `${catChecked}/${catTotal}`;
+
             catGroup.querySelectorAll('.item-check').forEach(cb => {
               if(cb.checked) cb.nextElementSibling.classList.add('strikethrough');
               else cb.nextElementSibling.classList.remove('strikethrough');
             });
           }
         });
+
+        saveState();
       }
 
       document.querySelectorAll('.item-check').forEach(cb => {
@@ -176,14 +201,48 @@
 
       function resetAll() {
         document.querySelectorAll('.item-check').forEach(cb => cb.checked = false);
+        localStorage.removeItem(STORAGE_KEY);
         updateProgress();
       }
 
+      let customItemCount = 0;
+
       function promptAddItem() {
         const itemName = prompt("Enter new item name:");
-        if (itemName) {
-          alert(`Item '${itemName}' would be added. (Demo only)`);
+        if (!itemName || !itemName.trim()) return;
+
+        // Create or find custom category
+        let customSection = document.querySelector('.checklist-group[data-category="custom"]');
+        if (!customSection) {
+          const card = document.querySelector('.card.border-0.shadow-sm.rounded-3.p-4');
+          const actionsDiv = card.querySelector('.d-flex.justify-content-between.pt-3');
+
+          const categoryHTML = `
+            <div class="mb-4" id="customCategory">
+              <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                <h5 class="fw-bold text-primary mb-0"><i class="fas fa-star me-2"></i> Custom Items</h5>
+                <span class="badge bg-light text-dark border" id="catCountCustom">0/0</span>
+              </div>
+              <div class="ms-2 checklist-group" data-category="custom"></div>
+            </div>
+          `;
+          actionsDiv.insertAdjacentHTML('beforebegin', categoryHTML);
+          customSection = document.querySelector('.checklist-group[data-category="custom"]');
         }
+
+        customItemCount++;
+        const itemId = `custom_item_${Date.now()}`;
+        const itemHTML = `
+          <div class="form-check mb-2 custom-checkbox">
+            <input class="form-check-input item-check" type="checkbox" id="${itemId}">
+            <label class="form-check-label fw-medium" for="${itemId}">${itemName.trim()}</label>
+          </div>
+        `;
+        customSection.insertAdjacentHTML('beforeend', itemHTML);
+
+        // Attach event listener to new checkbox
+        document.getElementById(itemId).addEventListener('change', updateProgress);
+        updateProgress();
       }
 
       // Initial call
@@ -191,3 +250,4 @@
     </script>
   </body>
 </html>
+
