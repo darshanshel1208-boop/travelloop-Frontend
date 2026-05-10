@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Packing Checklist | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      .form-check-input:checked { background-color: #ff7a59; border-color: #ff7a59; }
+      .strikethrough { text-decoration: line-through; color: #6c757d; }
+    </style>
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="itinerary.html">Itinerary</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-8" style="min-height: 100vh;">
+        <div class="container pt-4">
+          <div class="row mb-4 align-items-center">
+            <div class="col-lg-6">
+              <h2 class="fw-bold font-cursive text-capitalize mb-1">Packing Checklist</h2>
+              <p class="text-secondary mb-0">Trip to Rome & Paris • <span id="progressText">0/10 items packed</span></p>
+            </div>
+            <div class="col-lg-6 mt-3 mt-lg-0 d-flex gap-2 justify-content-lg-end">
+              <div class="input-group" style="max-width: 250px;">
+                <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-secondary"></i></span>
+                <input type="text" class="form-control border-start-0" placeholder="Search item...">
+              </div>
+              <button class="btn btn-outline-secondary px-3" title="Filter"><i class="fas fa-filter"></i></button>
+            </div>
+          </div>
+
+          <div class="progress mb-5 shadow-sm" style="height: 15px; border-radius: 10px;">
+            <div class="progress-bar bg-warning" id="packingProgress" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <div class="card border-0 shadow-sm rounded-3 p-4">
+                
+                <!-- Documents Category -->
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                    <h5 class="fw-bold text-primary mb-0"><i class="fas fa-folder-open me-2"></i> Documents</h5>
+                    <span class="badge bg-light text-dark border" id="catCountDoc">0/3</span>
+                  </div>
+                  <div class="ms-2 checklist-group" data-category="doc">
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item1">
+                      <label class="form-check-label fw-medium" for="item1">Passport & ID</label>
+                    </div>
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item2">
+                      <label class="form-check-label fw-medium" for="item2">Flight Tickets (printed)</label>
+                    </div>
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item3">
+                      <label class="form-check-label fw-medium" for="item3">Hotel booking confirmation</label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Clothing Category -->
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                    <h5 class="fw-bold text-primary mb-0"><i class="fas fa-tshirt me-2"></i> Clothing</h5>
+                    <span class="badge bg-light text-dark border" id="catCountCloth">0/4</span>
+                  </div>
+                  <div class="ms-2 checklist-group" data-category="cloth">
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item4">
+                      <label class="form-check-label fw-medium" for="item4">Casual shirts</label>
+                    </div>
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item5">
+                      <label class="form-check-label fw-medium" for="item5">Trousers / jeans</label>
+                    </div>
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item6">
+                      <label class="form-check-label fw-medium" for="item6">Comfortable walking shoes</label>
+                    </div>
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item7">
+                      <label class="form-check-label fw-medium" for="item7">Light jacket / windbreaker</label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Electronics Category -->
+                <div class="mb-5">
+                  <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                    <h5 class="fw-bold text-primary mb-0"><i class="fas fa-plug me-2"></i> Electronics</h5>
+                    <span class="badge bg-light text-dark border" id="catCountElec">0/3</span>
+                  </div>
+                  <div class="ms-2 checklist-group" data-category="elec">
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item8">
+                      <label class="form-check-label fw-medium" for="item8">Phone charger</label>
+                    </div>
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item9">
+                      <label class="form-check-label fw-medium" for="item9">Universal power adapter</label>
+                    </div>
+                    <div class="form-check mb-2 custom-checkbox">
+                      <input class="form-check-input item-check" type="checkbox" id="item10">
+                      <label class="form-check-label fw-medium" for="item10">Earphones / headphones</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between pt-3 border-top mt-4 flex-wrap gap-2">
+                  <button class="btn btn-outline-primary" onclick="promptAddItem()"><i class="fas fa-plus me-2"></i>Add item to checklist</button>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-danger" onclick="resetAll()"><i class="fas fa-undo me-2"></i>Reset all</button>
+                    <button class="btn btn-primary primary-btn-shadow"><i class="fas fa-share-alt me-2"></i>Share Checklist</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+      function updateProgress() {
+        const checkboxes = document.querySelectorAll('.item-check');
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.item-check:checked').length;
+        
+        document.getElementById('progressText').innerText = `${checked}/${total} items packed`;
+        document.getElementById('packingProgress').style.width = `${(checked/total)*100}%`;
+
+        // Update category counts and strikethrough
+        ['doc', 'cloth', 'elec'].forEach(cat => {
+          const catGroup = document.querySelector(`.checklist-group[data-category="${cat}"]`);
+          if(catGroup) {
+            const catTotal = catGroup.querySelectorAll('.item-check').length;
+            const catChecked = catGroup.querySelectorAll('.item-check:checked').length;
+            document.getElementById(`catCount${cat.charAt(0).toUpperCase() + cat.slice(1)}`).innerText = `${catChecked}/${catTotal}`;
+            
+            catGroup.querySelectorAll('.item-check').forEach(cb => {
+              if(cb.checked) cb.nextElementSibling.classList.add('strikethrough');
+              else cb.nextElementSibling.classList.remove('strikethrough');
+            });
+          }
+        });
+      }
+
+      document.querySelectorAll('.item-check').forEach(cb => {
+        cb.addEventListener('change', updateProgress);
+      });
+
+      function resetAll() {
+        document.querySelectorAll('.item-check').forEach(cb => cb.checked = false);
+        updateProgress();
+      }
+
+      function promptAddItem() {
+        const itemName = prompt("Enter new item name:");
+        if (itemName) {
+          alert(`Item '${itemName}' would be added. (Demo only)`);
+        }
+      }
+
+      // Initial call
+      updateProgress();
+    </script>
+  </body>
+</html>

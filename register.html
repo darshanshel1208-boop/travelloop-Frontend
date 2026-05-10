@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-5 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="index.html#destination">Destinations</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="login.html">Login</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="register.html">Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+              <div class="card shadow rounded-3 border-0">
+                <div class="card-body p-5">
+                  <div class="text-center mb-4">
+                    <h3 class="fw-bold font-cursive text-capitalize">Create an Account</h3>
+                    <p class="text-secondary">Join Travelloop to plan your dream trips</p>
+                  </div>
+                  
+                  <form id="registerForm">
+                    <div class="text-center mb-4">
+                      <div class="position-relative d-inline-block">
+                        <img src="assets/img/testimonial/author.png" class="rounded-circle border" width="100" height="100" style="object-fit: cover;" alt="Profile Photo">
+                        <label for="profilePhoto" class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2 cursor-pointer" style="cursor: pointer;">
+                          <i class="fas fa-camera"></i>
+                        </label>
+                        <input type="file" class="d-none" id="profilePhoto" accept="image/*">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label fw-medium">First Name</label>
+                        <input type="text" class="form-control" id="firstName" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label fw-medium">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label fw-medium">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="phone" class="form-label fw-medium">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="city" class="form-label fw-medium">City</label>
+                        <input type="text" class="form-control" id="city">
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label fw-medium">Country</label>
+                        <input type="text" class="form-control" id="country">
+                      </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="additionalInfo" class="form-label fw-medium">Additional Information</label>
+                      <textarea class="form-control" id="additionalInfo" rows="3" placeholder="Tell us a bit about your travel preferences..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3 primary-btn-shadow btn-lg">Register User</button>
+                    <div class="text-center">
+                      <p class="fs--1 mb-0">Already have an account? <a href="login.html" class="text-decoration-none">Login</a></p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const firstName = document.getElementById('firstName').value;
+        if (email) {
+          localStorage.setItem('traveloop_user', JSON.stringify({ email: email, name: firstName }));
+          window.location.href = 'dashboard.html';
+        }
+      });
+    </script>
+  </body>
+</html>

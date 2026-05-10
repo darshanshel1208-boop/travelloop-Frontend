@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create New Trip | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium active" aria-current="page" href="create-trip.html">Create Trip</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile"> My Profile
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-8" style="min-height: 100vh;">
+        <div class="container pt-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="card border-0 shadow-lg rounded-3">
+                <div class="card-body p-5">
+                  <div class="text-center mb-5">
+                    <h2 class="fw-bold font-cursive text-capitalize">Plan a New Trip</h2>
+                    <p class="text-secondary">Fill out the details below to start organizing your journey.</p>
+                  </div>
+
+                  <form id="createTripForm">
+                    <div class="mb-4">
+                      <label for="tripName" class="form-label fw-medium">Trip Name</label>
+                      <input type="text" class="form-control form-control-lg" id="tripName" placeholder="e.g., Summer Backpacking in Europe" required>
+                    </div>
+
+                    <div class="row mb-4">
+                      <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="startDate" class="form-label fw-medium">Start Date</label>
+                        <input type="date" class="form-control form-control-lg" id="startDate" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="endDate" class="form-label fw-medium">End Date</label>
+                        <input type="date" class="form-control form-control-lg" id="endDate" required>
+                      </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="tripDescription" class="form-label fw-medium">Trip Description (Optional)</label>
+                      <textarea class="form-control" id="tripDescription" rows="3" placeholder="What is the main goal of this trip?"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label fw-medium">Cover Photo (Optional)</label>
+                      <div class="border rounded p-4 text-center bg-light" style="border-style: dashed !important;">
+                        <img src="assets/img/icons/upload.svg" width="30" class="mb-2" alt="upload">
+                        <p class="fs--1 text-secondary mb-0">Drag and drop an image, or click to browse</p>
+                        <input type="file" class="d-none" id="coverPhoto" accept="image/*">
+                      </div>
+                    </div>
+
+                    <div class="d-grid mt-5">
+                      <button type="submit" class="btn btn-primary btn-lg primary-btn-shadow">Create & Continue to Itinerary</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+      document.getElementById('createTripForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const tripData = {
+          name: document.getElementById('tripName').value,
+          startDate: document.getElementById('startDate').value,
+          endDate: document.getElementById('endDate').value,
+          description: document.getElementById('tripDescription').value,
+          id: Date.now().toString()
+        };
+        
+        let trips = JSON.parse(localStorage.getItem('traveloop_trips') || '[]');
+        trips.push(tripData);
+        localStorage.setItem('traveloop_trips', JSON.stringify(trips));
+        
+        // Redirect to itinerary builder
+        window.location.href = `itinerary.html?id=${tripData.id}`;
+      });
+    </script>
+  </body>
+</html>

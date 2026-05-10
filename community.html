@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Community | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium active" href="community.html">Community</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="create-trip.html">Create Trip</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile"> My Profile
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="profileDropdown">
+                  <li><a class="dropdown-item" href="profile.html">Settings</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logout()">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-8" style="min-height: 100vh;">
+        <div class="container pt-4">
+          <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+              <h2 class="fw-bold font-cursive text-capitalize mb-2">Community Connect</h2>
+              <p class="text-secondary mb-0">Share your experiences and discover inspiration from other travelers.</p>
+            </div>
+            <div class="col-lg-6 mt-3 mt-lg-0">
+              <div class="d-flex align-items-center gap-2 justify-content-lg-end">
+                <div class="input-group" style="max-width: 300px;">
+                  <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-secondary"></i></span>
+                  <input type="text" class="form-control border-start-0" placeholder="Search topics...">
+                </div>
+                <select class="form-select w-auto">
+                  <option selected>Group By</option>
+                  <option value="1">Location</option>
+                  <option value="2">Activity</option>
+                </select>
+                <button class="btn btn-outline-primary px-3"><i class="fas fa-filter"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              
+              <!-- Create Post -->
+              <div class="card border-0 shadow-sm rounded-3 mb-4">
+                <div class="card-body p-4 d-flex align-items-center">
+                  <img src="assets/img/testimonial/author.png" class="rounded-circle me-3" width="50" height="50" alt="User">
+                  <input type="text" class="form-control rounded-pill bg-light border-0 px-4 py-2" placeholder="Share your latest travel story...">
+                  <button class="btn btn-primary rounded-circle ms-3 primary-btn-shadow" style="width: 45px; height: 45px;"><i class="fas fa-paper-plane"></i></button>
+                </div>
+              </div>
+
+              <!-- Post 1 -->
+              <div class="card border-0 shadow-sm rounded-3 mb-4">
+                <div class="card-body p-4">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                      <img src="assets/img/testimonial/author2.png" class="rounded-circle me-3" width="50" height="50" alt="User">
+                      <div>
+                        <h6 class="mb-0 fw-bold">Sarah Jenkins</h6>
+                        <p class="text-secondary fs--2 mb-0">2 hours ago in <span class="text-primary fw-medium">Kyoto, Japan</span></p>
+                      </div>
+                    </div>
+                    <button class="btn btn-light rounded-circle"><i class="fas fa-ellipsis-h"></i></button>
+                  </div>
+                  <p class="text-dark">Just finished exploring the Arashiyama Bamboo Grove! It was absolutely breathtaking. Pro tip: Go early in the morning around 6 AM to avoid the massive crowds. Anyone have recommendations for good matcha places nearby? 🎋🍵</p>
+                  <div class="rounded-3 overflow-hidden mb-3">
+                    <img src="assets/img/dest/dest1.jpg" class="w-100" style="height: 300px; object-fit: cover;" alt="Post image">
+                  </div>
+                  <div class="d-flex gap-3 text-secondary border-top pt-3">
+                    <button class="btn btn-sm text-secondary px-0"><i class="far fa-heart me-1 text-danger"></i> 245 Likes</button>
+                    <button class="btn btn-sm text-secondary px-0"><i class="far fa-comment me-1"></i> 32 Comments</button>
+                    <button class="btn btn-sm text-secondary px-0"><i class="far fa-share-square me-1"></i> Share</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Post 2 -->
+              <div class="card border-0 shadow-sm rounded-3 mb-4">
+                <div class="card-body p-4">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                      <img src="assets/img/testimonial/author3.png" class="rounded-circle me-3" width="50" height="50" alt="User">
+                      <div>
+                        <h6 class="mb-0 fw-bold">Michael Chen</h6>
+                        <p class="text-secondary fs--2 mb-0">5 hours ago in <span class="text-primary fw-medium">London, UK</span></p>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-dark">Found this hidden gem of a cafe near Covent Garden! The pastries are out of this world. Budget-friendly and great atmosphere. Highly recommend checking it out if you're in the area. ☕🥐</p>
+                  <div class="d-flex gap-3 text-secondary border-top pt-3">
+                    <button class="btn btn-sm text-secondary px-0"><i class="far fa-heart me-1"></i> 112 Likes</button>
+                    <button class="btn btn-sm text-secondary px-0"><i class="far fa-comment me-1"></i> 18 Comments</button>
+                    <button class="btn btn-sm text-secondary px-0"><i class="far fa-share-square me-1"></i> Share</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+      function logout() {
+        localStorage.removeItem('traveloop_user');
+        window.location.href = 'index.html';
+      }
+    </script>
+  </body>
+</html>

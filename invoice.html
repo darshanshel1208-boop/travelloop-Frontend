@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Expense Invoice | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Pie Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium active" href="invoice.html">Invoices</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-8" style="min-height: 100vh;">
+        <div class="container pt-4">
+          <div class="mb-4">
+            <a href="dashboard.html" class="text-decoration-none text-secondary"><i class="fas fa-arrow-left"></i> Back to My Trips</a>
+          </div>
+
+          <div class="row mb-4 align-items-center">
+            <div class="col-lg-6">
+              <h2 class="fw-bold font-cursive text-capitalize mb-1">Expense Invoice</h2>
+            </div>
+            <div class="col-lg-6 mt-3 mt-lg-0 d-flex gap-2 justify-content-lg-end">
+              <div class="input-group" style="max-width: 250px;">
+                <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-secondary"></i></span>
+                <input type="text" class="form-control border-start-0" placeholder="Search Invoices...">
+              </div>
+              <button class="btn btn-outline-secondary px-3"><i class="fas fa-filter"></i></button>
+              <button class="btn btn-outline-secondary px-3"><i class="fas fa-sort"></i></button>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Invoice Details -->
+            <div class="col-lg-8 mb-4">
+              <div class="card border-0 shadow-sm rounded-3 p-4 p-md-5 bg-white">
+                <div class="row border-bottom pb-4 mb-4">
+                  <div class="col-md-6 d-flex align-items-center mb-4 mb-md-0">
+                    <div class="bg-light p-3 rounded text-center me-4" style="width: 80px; height: 80px;">
+                      <img src="assets/img/icons/up.svg" width="40" alt="logo placeholder" style="opacity:0.3">
+                    </div>
+                    <div>
+                      <h4 class="fw-bold mb-1">Trip to Europe Vacation</h4>
+                      <p class="text-secondary mb-0 fs--1">May 14 - Jun 28, 2026 • 45 days<br>Billed To: Darshan</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 text-md-end">
+                    <div class="row">
+                      <div class="col-6 col-md-12 mb-2">
+                        <span class="text-secondary fs--1">Invoice ID:</span>
+                        <h6 class="fw-bold mb-0">INV-TRP-50293</h6>
+                      </div>
+                      <div class="col-6 col-md-12 mb-2">
+                        <span class="text-secondary fs--1">Generated Date:</span>
+                        <h6 class="fw-bold mb-0">Aug 20, 2025</h6>
+                      </div>
+                      <div class="col-6 col-md-12 mb-2">
+                        <span class="text-secondary fs--1">Traveler Details:</span>
+                        <p class="fs--1 mb-0 fw-medium">Darshan<br>Asha<br>Krish</p>
+                      </div>
+                      <div class="col-6 col-md-12">
+                        <span class="text-secondary fs--1">Payment Status:</span>
+                        <h6 class="fw-bold text-warning mb-0"><i class="fas fa-clock me-1"></i> Pending</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-responsive mb-4">
+                  <table class="table table-borderless table-striped">
+                    <thead class="bg-light text-secondary fs--1">
+                      <tr>
+                        <th>#</th>
+                        <th>Category</th>
+                        <th>Details</th>
+                        <th class="text-end">Unit Cost</th>
+                        <th class="text-end">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody class="fw-medium">
+                      <tr>
+                        <td>1</td>
+                        <td>Hotel</td>
+                        <td>Rome - 5 nights (2 rooms)</td>
+                        <td class="text-end">$200</td>
+                        <td class="text-end">$2000</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Travel</td>
+                        <td>Flight bookings (JFK -> FCO)</td>
+                        <td class="text-end">$1200</td>
+                        <td class="text-end">$3600</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Activities</td>
+                        <td>Colosseum Guided Tour (3 pax)</td>
+                        <td class="text-end">$50</td>
+                        <td class="text-end">$150</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Insurance</td>
+                        <td>Travel Insurance package</td>
+                        <td class="text-end">$150</td>
+                        <td class="text-end">$450</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="row justify-content-end border-top pt-4">
+                  <div class="col-sm-6 col-md-5 col-lg-4">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-secondary fw-medium">Subtotal</span>
+                      <span class="fw-bold">$6200</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-secondary fw-medium">Tax (10%)</span>
+                      <span class="fw-bold">$620</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                      <span class="text-secondary fw-medium">Discount</span>
+                      <span class="fw-bold text-success">-$200</span>
+                    </div>
+                    <div class="d-flex justify-content-between border-top pt-3">
+                      <span class="fw-bold fs-1">Grand Total</span>
+                      <span class="fw-bold fs-1 text-primary">$6620</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between flex-wrap gap-2 mt-5">
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary"><i class="fas fa-download me-2"></i>Download Invoice</button>
+                    <button class="btn btn-outline-secondary"><i class="fas fa-file-pdf me-2"></i>Export as PDF</button>
+                  </div>
+                  <button class="btn btn-primary primary-btn-shadow"><i class="fas fa-check-circle me-2"></i>Mark as Paid</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Budget Insights sidebar -->
+            <div class="col-lg-4 mb-4">
+              <div class="card border-0 shadow-sm rounded-3 p-4 h-100">
+                <h5 class="fw-bold mb-4">Budget Insights</h5>
+                
+                <div class="mb-4" style="height: 200px;">
+                  <canvas id="budgetChart"></canvas>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                  <div class="d-flex align-items-center">
+                    <div class="bg-primary rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                    <span class="text-secondary fw-medium">Total Budget</span>
+                  </div>
+                  <span class="fw-bold">$8000</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                  <div class="d-flex align-items-center">
+                    <div class="bg-danger rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                    <span class="text-secondary fw-medium">Total Spent</span>
+                  </div>
+                  <span class="fw-bold">$6620</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <div class="bg-success rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                    <span class="text-secondary fw-medium">Remaining</span>
+                  </div>
+                  <span class="fw-bold text-success">$1380</span>
+                </div>
+
+                <div class="mt-4 pt-4 border-top">
+                  <button class="btn btn-outline-primary w-100">View Full Budget</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+      // Initialize Pie Chart
+      const ctx = document.getElementById('budgetChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Spent', 'Remaining'],
+          datasets: [{
+            data: [6620, 1380],
+            backgroundColor: ['#DF6951', '#181E4B'],
+            borderWidth: 0,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          cutout: '70%'
+        }
+      });
+    </script>
+  </body>
+</html>

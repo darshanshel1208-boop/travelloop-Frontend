@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Itinerary Builder | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <style>
+      .timeline-container { position: relative; padding-left: 20px; border-left: 2px dashed #ff7a59; }
+      .timeline-item { position: relative; margin-bottom: 2rem; }
+      .timeline-dot { position: absolute; left: -29px; top: 0; width: 16px; height: 16px; border-radius: 50%; background-color: #ff7a59; border: 3px solid #fff; box-shadow: 0 0 0 2px #ff7a59; }
+      .activity-item { border-left: 3px solid #6c757d; padding-left: 10px; margin-top: 10px; background: #f8f9fa; border-radius: 4px; padding: 8px;}
+    </style>
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="create-trip.html">Create Trip</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-8" style="min-height: 100vh;">
+        <div class="container pt-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h2 class="fw-bold font-cursive" id="tripTitle">Trip Itinerary</h2>
+              <p class="text-secondary mb-0" id="tripDates">Dates: -</p>
+            </div>
+            <div>
+              <button class="btn btn-warning me-2 text-white primary-btn-shadow" onclick="generateAISuggestion()"><i class="fas fa-magic"></i> AI Suggestion</button>
+              <button class="btn btn-primary primary-btn-shadow" data-bs-toggle="modal" data-bs-target="#addStopModal">+ Add City / Stop</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card border-0 shadow-sm rounded-3 p-4 mb-4">
+                <h4 class="mb-4">Itinerary Timeline</h4>
+                <div class="timeline-container" id="timelineContainer">
+                  <!-- Stops will be rendered here -->
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-4">
+              <div class="card border-0 shadow-sm rounded-3 p-4 mb-4">
+                <h5 class="mb-3">Quick Actions</h5>
+                <ul class="list-unstyled mb-0">
+                  <li class="mb-3"><a href="#" class="text-decoration-none d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#addActivityModal"><span class="bg-primary text-white rounded-circle p-2 me-3"><i class="fas fa-search"></i></span> Discover Activities</a></li>
+                  <li class="mb-3"><a href="budget.html?id=${tripId}" onclick="this.href='budget.html?id='+tripId" class="text-decoration-none d-flex align-items-center"><span class="bg-danger text-white rounded-circle p-2 me-3"><i class="fas fa-wallet"></i></span> View Budget Tracker</a></li>
+                  <li><a href="#" class="text-decoration-none d-flex align-items-center"><span class="bg-info text-white rounded-circle p-2 me-3"><i class="fas fa-suitcase"></i></span> Packing Checklist</a></li>
+                </ul>
+              </div>
+
+              <!-- Trip Notes -->
+              <div class="card border-0 shadow-sm rounded-3 p-4 mb-4 bg-warning" style="--bs-bg-opacity: .1;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="mb-0">Trip Notes</h5>
+                  <button class="btn btn-sm btn-outline-warning text-dark" onclick="addNote()"><i class="fas fa-plus"></i></button>
+                </div>
+                <div id="notesContainer">
+                  <!-- Notes rendered here -->
+                </div>
+                <textarea id="newNoteInput" class="form-control mt-2 d-none" placeholder="Type a note and press enter..." rows="2"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add Stop / City Search Modal -->
+      <div class="modal fade" id="addStopModal" tabindex="-1" aria-labelledby="addStopModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+              <h5 class="modal-title fw-bold" id="addStopModalLabel">Add a City Stop</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="addStopForm">
+                <div class="mb-3 position-relative">
+                  <label class="form-label">City Search</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fas fa-search text-secondary"></i></span>
+                    <input type="text" class="form-control border-start-0" id="stopCity" placeholder="Search for a city..." list="citySuggestions" autocomplete="off" required>
+                  </div>
+                  <datalist id="citySuggestions">
+                    <option value="Paris, France">
+                    <option value="London, UK">
+                    <option value="Rome, Italy">
+                    <option value="Tokyo, Japan">
+                    <option value="New York, USA">
+                  </datalist>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label class="form-label">Arrival</label>
+                    <input type="date" class="form-control" id="stopArrival" required>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label">Departure</label>
+                    <input type="date" class="form-control" id="stopDeparture" required>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Estimated Budget ($)</label>
+                  <input type="number" class="form-control" id="stopBudget">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Add Stop</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Activity Search Modal -->
+      <div class="modal fade" id="addActivityModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+              <h5 class="modal-title fw-bold">Add Activity</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="addActivityForm">
+                <input type="hidden" id="activityStopId">
+                <div class="mb-3">
+                  <label class="form-label">Search Activities</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fas fa-search text-secondary"></i></span>
+                    <input type="text" class="form-control border-start-0" id="activityName" placeholder="E.g., Colosseum Tour, Eiffel Tower" list="activitySuggestions" autocomplete="off" required>
+                  </div>
+                  <datalist id="activitySuggestions">
+                    <option value="Colosseum Guided Tour ($50)">
+                    <option value="Eiffel Tower Summit ($30)">
+                    <option value="British Museum (Free)">
+                    <option value="Local Food Tasting ($45)">
+                  </datalist>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Cost ($)</label>
+                  <input type="number" class="form-control" id="activityCost" value="0">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Add Activity</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="vendors/fontawesome/all.min.js"></script>
+    
+    <script>
+      // Load Trip Data
+      const urlParams = new URLSearchParams(window.location.search);
+      const tripId = urlParams.get('id');
+      const trips = JSON.parse(localStorage.getItem('traveloop_trips') || '[]');
+      let currentTrip = trips.find(t => t.id === tripId);
+      
+      // Handle missing trip by making a temporary one
+      if (!currentTrip) {
+         currentTrip = { id: tripId || 'temp', name: 'My Custom Trip', startDate: 'TBD', endDate: 'TBD' };
+      }
+      
+      document.getElementById('tripTitle').innerText = currentTrip.name;
+      document.getElementById('tripDates').innerText = `${currentTrip.startDate} to ${currentTrip.endDate}`;
+
+      // Handle Stops & Activities
+      let stops = JSON.parse(localStorage.getItem(`traveloop_stops_${currentTrip.id}`) || '[]');
+      let notes = JSON.parse(localStorage.getItem(`traveloop_notes_${currentTrip.id}`) || '[]');
+
+      function renderStops() {
+        const container = document.getElementById('timelineContainer');
+        if (stops.length === 0) {
+          container.innerHTML = '<p class="text-secondary">No cities added yet. Click "Add City / Stop" or "AI Suggestion" to begin.</p>';
+          return;
+        }
+
+        container.innerHTML = stops.map(stop => {
+          const activitiesHTML = (stop.activities || []).map(act => `
+            <div class="activity-item d-flex justify-content-between align-items-center">
+              <span class="fs--1"><i class="fas fa-check-circle text-success me-1"></i> ${act.name}</span>
+              <span class="badge bg-secondary">$${act.cost}</span>
+            </div>
+          `).join('');
+
+          return `
+            <div class="timeline-item bg-white p-3 rounded shadow-sm border">
+              <div class="timeline-dot"></div>
+              <div class="d-flex justify-content-between">
+                <h5 class="fw-bold mb-1">${stop.city}</h5>
+                <span class="fs--1 fw-bold text-success">Budget: $${stop.budget || 0}</span>
+              </div>
+              <p class="fs--1 text-secondary mb-2"><i class="far fa-calendar-alt"></i> ${stop.arrival} - ${stop.departure}</p>
+              
+              <div class="activities mt-2 mb-3">
+                ${activitiesHTML}
+              </div>
+
+              <div class="mt-3 border-top pt-3">
+                <button class="btn btn-sm btn-outline-primary" onclick="openActivityModal('${stop.id}')"><i class="fas fa-plus"></i> Activity</button>
+                <button class="btn btn-sm btn-outline-danger" onclick="removeStop('${stop.id}')"><i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function renderNotes() {
+        const container = document.getElementById('notesContainer');
+        if(notes.length === 0) {
+          container.innerHTML = '<p class="fs--1 text-secondary mb-0">No notes added.</p>';
+        } else {
+          container.innerHTML = notes.map((note, index) => `
+            <div class="bg-white p-2 rounded mb-2 shadow-sm fs--1 position-relative">
+              ${note}
+              <i class="fas fa-times text-danger position-absolute top-0 end-0 p-1" style="cursor:pointer;" onclick="deleteNote(${index})"></i>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Notes Logic
+      function addNote() {
+        const input = document.getElementById('newNoteInput');
+        input.classList.toggle('d-none');
+        if(!input.classList.contains('d-none')) {
+          input.focus();
+        }
+      }
+
+      document.getElementById('newNoteInput').addEventListener('keypress', function(e) {
+        if(e.key === 'Enter' && this.value.trim() !== '') {
+          e.preventDefault();
+          notes.push(this.value.trim());
+          localStorage.setItem(`traveloop_notes_${currentTrip.id}`, JSON.stringify(notes));
+          this.value = '';
+          this.classList.add('d-none');
+          renderNotes();
+        }
+      });
+
+      window.deleteNote = function(index) {
+        notes.splice(index, 1);
+        localStorage.setItem(`traveloop_notes_${currentTrip.id}`, JSON.stringify(notes));
+        renderNotes();
+      }
+
+      // Add Stop Logic
+      document.getElementById('addStopForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newStop = {
+          id: Date.now().toString(),
+          city: document.getElementById('stopCity').value,
+          arrival: document.getElementById('stopArrival').value,
+          departure: document.getElementById('stopDeparture').value,
+          budget: document.getElementById('stopBudget').value,
+          activities: []
+        };
+        stops.push(newStop);
+        localStorage.setItem(`traveloop_stops_${currentTrip.id}`, JSON.stringify(stops));
+        renderStops();
+        
+        const modalEl = document.getElementById('addStopModal');
+        const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        modal.hide();
+        e.target.reset();
+      });
+
+      window.removeStop = function(id) {
+        stops = stops.filter(s => s.id !== id);
+        localStorage.setItem(`traveloop_stops_${currentTrip.id}`, JSON.stringify(stops));
+        renderStops();
+      };
+
+      // Activity Logic
+      window.openActivityModal = function(stopId) {
+        document.getElementById('activityStopId').value = stopId;
+        const modalEl = new bootstrap.Modal(document.getElementById('addActivityModal'));
+        modalEl.show();
+      }
+
+      document.getElementById('addActivityForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const stopId = document.getElementById('activityStopId').value;
+        const activityName = document.getElementById('activityName').value;
+        const activityCost = document.getElementById('activityCost').value;
+
+        const stopIndex = stops.findIndex(s => s.id === stopId);
+        if(stopIndex > -1) {
+          if(!stops[stopIndex].activities) stops[stopIndex].activities = [];
+          stops[stopIndex].activities.push({ name: activityName, cost: activityCost });
+          localStorage.setItem(`traveloop_stops_${currentTrip.id}`, JSON.stringify(stops));
+          renderStops();
+        }
+
+        const modalEl = document.getElementById('addActivityModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+        e.target.reset();
+      });
+
+      // AI Suggestion Logic
+      window.generateAISuggestion = function() {
+        const btn = document.querySelector('button[onclick="generateAISuggestion()"]');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+          stops = [
+            { id: 'ai1', city: 'Venice, Italy', arrival: '2026-07-01', departure: '2026-07-04', budget: 1200, activities: [{name: 'Gondola Ride', cost: 80}, {name: 'St. Mark\'s Basilica Tour', cost: 35}] },
+            { id: 'ai2', city: 'Florence, Italy', arrival: '2026-07-04', departure: '2026-07-08', budget: 1000, activities: [{name: 'Uffizi Gallery Entry', cost: 25}] }
+          ];
+          notes = ["Remember to book train tickets from Venice to Florence in advance!", "Pack light clothing for Italian summer."];
+          
+          localStorage.setItem(`traveloop_stops_${currentTrip.id}`, JSON.stringify(stops));
+          localStorage.setItem(`traveloop_notes_${currentTrip.id}`, JSON.stringify(notes));
+          
+          renderStops();
+          renderNotes();
+          
+          btn.innerHTML = '<i class="fas fa-magic"></i> AI Suggestion Applied!';
+          btn.classList.remove('btn-warning');
+          btn.classList.add('btn-success');
+          
+        }, 1500); // simulate API call delay
+      };
+
+      // Initial Render
+      renderStops();
+      renderNotes();
+    </script>
+  </body>
+</html>

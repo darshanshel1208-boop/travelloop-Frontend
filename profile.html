@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profile | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="create-trip.html">Create Trip</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center active" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile"> My Profile
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="profileDropdown">
+                  <li><a class="dropdown-item" href="profile.html">Settings</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logout()">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-8" style="min-height: 100vh;">
+        <div class="container pt-4">
+          <div class="row">
+            <!-- User Details Section -->
+            <div class="col-12 mb-5">
+              <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+                <div class="bg-primary" style="height: 150px; position: relative;">
+                  <div class="position-absolute end-0 top-0"><img src="assets/img/cta/shape-bg2.png" width="200" alt="" style="opacity: 0.2;"></div>
+                </div>
+                <div class="card-body px-5 pb-5 position-relative" style="margin-top: -60px;">
+                  <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between">
+                    <div class="d-flex align-items-end mb-4 mb-md-0">
+                      <img src="assets/img/testimonial/author.png" class="rounded-circle border border-4 border-white shadow-sm bg-white" width="120" height="120" style="object-fit: cover; z-index: 2;" alt="User Image">
+                      <div class="ms-4 pb-2">
+                        <h3 class="fw-bold mb-1" id="profileName">Traveler Name</h3>
+                        <p class="text-secondary mb-0"><i class="fas fa-map-marker-alt me-2"></i> Global Explorer</p>
+                      </div>
+                    </div>
+                    <div>
+                      <button class="btn btn-outline-primary primary-btn-shadow bg-white"><i class="fas fa-edit me-2"></i>Edit Profile</button>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-4 row">
+                    <div class="col-md-6">
+                      <h6 class="fw-bold mb-3">User Details</h6>
+                      <ul class="list-unstyled text-secondary">
+                        <li class="mb-2"><i class="fas fa-envelope me-3 w-15px"></i> <span id="profileEmail">user@example.com</span></li>
+                        <li class="mb-2"><i class="fas fa-phone me-3 w-15px"></i> +1 234 567 8900</li>
+                        <li class="mb-2"><i class="fas fa-calendar-alt me-3 w-15px"></i> Joined May 2026</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="fw-bold mb-3">About Me</h6>
+                      <p class="text-secondary fs--1">Passionate about exploring historical sites and trying local cuisines. Usually travel light and prefer homestays over hotels. Always open to new adventures and learning about different cultures.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preplanned Trips Section -->
+            <div class="col-12 mb-5">
+              <h4 class="fw-bold font-cursive mb-4">Preplanned Trips</h4>
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card border-0 shadow-sm h-100 rounded-3">
+                    <img src="assets/img/dest/dest1.jpg" class="card-img-top" style="height: 150px; object-fit: cover;" alt="Rome">
+                    <div class="card-body text-center">
+                      <h5 class="card-title fw-bold">Rome Gateway</h5>
+                      <p class="card-text text-secondary fs--1">Upcoming in 2 months</p>
+                      <a href="itinerary.html" class="btn btn-primary btn-sm w-100">View</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-0 shadow-sm h-100 rounded-3">
+                    <img src="assets/img/dest/dest2.jpg" class="card-img-top" style="height: 150px; object-fit: cover;" alt="London">
+                    <div class="card-body text-center">
+                      <h5 class="card-title fw-bold">London Explorer</h5>
+                      <p class="card-text text-secondary fs--1">Upcoming in 5 months</p>
+                      <a href="itinerary.html" class="btn btn-primary btn-sm w-100">View</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-0 shadow-sm h-100 rounded-3">
+                    <img src="assets/img/dest/dest3.jpg" class="card-img-top" style="height: 150px; object-fit: cover;" alt="Paris">
+                    <div class="card-body text-center">
+                      <h5 class="card-title fw-bold">Paris Weekend</h5>
+                      <p class="card-text text-secondary fs--1">Planning Phase</p>
+                      <a href="itinerary.html" class="btn btn-primary btn-sm w-100">View</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Previous Trips Section -->
+            <div class="col-12">
+              <h4 class="fw-bold font-cursive mb-4">Previous Trips</h4>
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card border-0 shadow-sm h-100 rounded-3" style="filter: grayscale(0.5);">
+                    <img src="assets/img/dest/dest1.jpg" class="card-img-top" style="height: 150px; object-fit: cover;" alt="Past">
+                    <div class="card-body text-center">
+                      <h5 class="card-title fw-bold">Tokyo 2025</h5>
+                      <p class="card-text text-secondary fs--1">Completed</p>
+                      <a href="#!" class="btn btn-outline-secondary btn-sm w-100">View Memories</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-0 shadow-sm h-100 rounded-3" style="filter: grayscale(0.5);">
+                    <img src="assets/img/dest/dest2.jpg" class="card-img-top" style="height: 150px; object-fit: cover;" alt="Past">
+                    <div class="card-body text-center">
+                      <h5 class="card-title fw-bold">New York 2024</h5>
+                      <p class="card-text text-secondary fs--1">Completed</p>
+                      <a href="#!" class="btn btn-outline-secondary btn-sm w-100">View Memories</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-0 shadow-sm h-100 rounded-3" style="filter: grayscale(0.5);">
+                    <img src="assets/img/dest/dest3.jpg" class="card-img-top" style="height: 150px; object-fit: cover;" alt="Past">
+                    <div class="card-body text-center">
+                      <h5 class="card-title fw-bold">Bali Retreat</h5>
+                      <p class="card-text text-secondary fs--1">Completed</p>
+                      <a href="#!" class="btn btn-outline-secondary btn-sm w-100">View Memories</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+      const user = JSON.parse(localStorage.getItem('traveloop_user'));
+      if (user && user.email) {
+        document.getElementById('profileEmail').innerText = user.email;
+        if(user.name) {
+          document.getElementById('profileName').innerText = user.name;
+        } else {
+          document.getElementById('profileName').innerText = user.email.split('@')[0];
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem('traveloop_user');
+        window.location.href = 'index.html';
+      }
+    </script>
+  </body>
+</html>

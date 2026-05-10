@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Budget Tracker | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="create-trip.html">Create Trip</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-8" style="min-height: 100vh;">
+        <div class="container pt-4">
+          <div class="mb-4">
+            <a href="dashboard.html" class="text-decoration-none text-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            <h2 class="fw-bold font-cursive mt-2" id="tripTitle">Trip Budget Breakdown</h2>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4 mb-4">
+              <div class="card border-0 shadow-sm rounded-3 p-4 bg-primary text-white">
+                <h5 class="text-white mb-3">Total Estimated Cost</h5>
+                <h2 class="fw-bold text-white display-4 mb-1" id="totalCost">$0</h2>
+                <p class="fs--1 mb-4 opacity-75">Based on your planned stops and activities</p>
+                
+                <h6 class="text-white mt-3 border-top pt-3 border-light border-opacity-25">Quick Stats</h6>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Avg per Day</span>
+                  <span class="fw-bold" id="avgPerDay">$0</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Most Expensive</span>
+                  <span class="fw-bold" id="expensiveStop">-</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-8 mb-4">
+              <div class="card border-0 shadow-sm rounded-3 p-4 h-100">
+                <h5 class="mb-4">Cost by City</h5>
+                <div id="cityBreakdown">
+                  <!-- Breakdown rendered here -->
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="card border-0 shadow-sm rounded-3 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="mb-0">All Planned Expenses</h5>
+                  <button class="btn btn-sm btn-outline-primary">+ Add Custom Expense</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-borderless table-hover">
+                    <thead class="bg-light">
+                      <tr>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>City</th>
+                        <th class="text-end">Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody id="expenseTable">
+                      <!-- Table rows rendered here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="vendors/fontawesome/all.min.js"></script>
+    
+    <script>
+      // Load Trip Data
+      const urlParams = new URLSearchParams(window.location.search);
+      let tripId = urlParams.get('id');
+      const trips = JSON.parse(localStorage.getItem('traveloop_trips') || '[]');
+      
+      if (!tripId && trips.length > 0) { tripId = trips[0].id; }
+      const currentTrip = trips.find(t => t.id === tripId) || { name: 'My Custom Trip' };
+      
+      document.getElementById('tripTitle').innerText = `${currentTrip.name} - Budget`;
+
+      // Handle Stops & Activities
+      let stops = JSON.parse(localStorage.getItem(`traveloop_stops_${tripId}`) || '[]');
+      
+      let totalCost = 0;
+      let expensiveStop = { city: '-', cost: 0 };
+      
+      const cityBreakdownEl = document.getElementById('cityBreakdown');
+      const expenseTableEl = document.getElementById('expenseTable');
+
+      if (stops.length === 0) {
+        cityBreakdownEl.innerHTML = '<p class="text-secondary">No stops added yet.</p>';
+        expenseTableEl.innerHTML = '<tr><td colspan="4" class="text-center text-secondary py-4">No expenses recorded. Add stops and activities in the itinerary builder.</td></tr>';
+      } else {
+        stops.forEach(stop => {
+          let stopCost = Number(stop.budget || 0);
+          
+          expenseTableEl.innerHTML += `
+            <tr>
+              <td><span class="badge bg-warning text-dark"><i class="fas fa-bed"></i> Accommodation / General</span></td>
+              <td>Base Budget Allocation</td>
+              <td>${stop.city}</td>
+              <td class="text-end fw-medium">$${stopCost}</td>
+            </tr>
+          `;
+
+          (stop.activities || []).forEach(act => {
+            const actCost = Number(act.cost || 0);
+            stopCost += actCost;
+            expenseTableEl.innerHTML += `
+              <tr>
+                <td><span class="badge bg-info"><i class="fas fa-ticket-alt"></i> Activity</span></td>
+                <td>${act.name}</td>
+                <td>${stop.city}</td>
+                <td class="text-end fw-medium">$${actCost}</td>
+              </tr>
+            `;
+          });
+
+          totalCost += stopCost;
+
+          if (stopCost > expensiveStop.cost) {
+            expensiveStop = { city: stop.city, cost: stopCost };
+          }
+
+          // Render Progress Bar
+          const randomColor = ['bg-primary', 'bg-danger', 'bg-warning', 'bg-info', 'bg-success'][Math.floor(Math.random() * 5)];
+          cityBreakdownEl.innerHTML += `
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span class="fw-medium">${stop.city}</span>
+                <span class="text-secondary">$${stopCost}</span>
+              </div>
+              <div class="progress" style="height: 8px;">
+                <div class="progress-bar ${randomColor}" role="progressbar" style="width: 100%;"></div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      document.getElementById('totalCost').innerText = `$${totalCost.toLocaleString()}`;
+      document.getElementById('avgPerDay').innerText = stops.length > 0 ? `$${Math.round(totalCost / (stops.length * 2)).toLocaleString()}` : '$0';
+      document.getElementById('expensiveStop').innerText = expensiveStop.city;
+
+    </script>
+  </body>
+</html>

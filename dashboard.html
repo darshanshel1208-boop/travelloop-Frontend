@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard | Travelloop</title>
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-4 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand fw-bold fs-3 text-primary" style="font-family: 'Volkhov', serif;" href="index.html">Travelloop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium active" aria-current="page" href="dashboard.html">Dashboard</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="create-trip.html">Create Trip</a></li>
+              <li class="nav-item px-3 px-xl-4 dropdown">
+                <a class="nav-link dropdown-toggle fw-medium d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/testimonial/author.png" width="30" height="30" class="rounded-circle me-2" alt="Profile"> My Profile
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="profileDropdown">
+                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logout()">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="pt-8 bg-light pb-6">
+        <div class="container pt-5">
+          <div class="row mb-5 align-items-center">
+            <div class="col-md-8">
+              <h2 class="fw-bold text-secondary font-cursive text-capitalize" id="welcomeMessage">Welcome back, Traveler!</h2>
+              <p class="text-secondary mb-0">Ready for your next adventure?</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+              <a href="create-trip.html" class="btn btn-primary btn-lg primary-btn-shadow">Plan New Trip</a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-8">
+              <!-- My Trips Section -->
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0">My Upcoming Trips</h4>
+              </div>
+              <div class="row" id="tripList">
+                <!-- Trip Cards will be rendered here -->
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <!-- Sidebar / Inspiration -->
+              <h4 class="mb-4">Recommended Destinations</h4>
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body d-flex align-items-center p-3">
+                  <img src="assets/img/dest/dest2.jpg" class="rounded me-3" width="80" height="80" style="object-fit: cover;" alt="London">
+                  <div>
+                    <h6 class="mb-1">London, UK</h6>
+                    <p class="fs--1 text-secondary mb-1">Perfect for historical tours</p>
+                    <a href="#!" class="fs--1 text-decoration-none">Explore &rarr;</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body d-flex align-items-center p-3">
+                  <img src="assets/img/dest/dest3.jpg" class="rounded me-3" width="80" height="80" style="object-fit: cover;" alt="Paris">
+                  <div>
+                    <h6 class="mb-1">Paris, France</h6>
+                    <p class="fs--1 text-secondary mb-1">City of lights and love</p>
+                    <a href="#!" class="fs--1 text-decoration-none">Explore &rarr;</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Budget Summary widget -->
+              <div class="card border-0 shadow-sm bg-primary text-white mt-5 position-relative overflow-hidden">
+                <div class="position-absolute end-0 top-0 z-index--1"><img src="assets/img/cta/shape-bg2.png" width="150" alt="" style="opacity: 0.3;"></div>
+                <div class="card-body p-4">
+                  <h5 class="text-white mb-4">Trip Budget Summary</h5>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span>Total Planned</span>
+                    <span class="fw-bold" id="totalBudgetPlanned">$0</span>
+                  </div>
+                  <div class="progress mb-3" style="height: 6px; background-color: rgba(255,255,255,0.3);">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <p class="fs--1 mb-0">You have spent $2,430 so far (Flights & Hotels).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+      // Simple auth check
+      const user = JSON.parse(localStorage.getItem('traveloop_user'));
+      if (user && user.email) {
+        const username = user.email.split('@')[0];
+        document.getElementById('welcomeMessage').innerText = `Welcome back, ${username}!`;
+      }
+
+      function logout() {
+        localStorage.removeItem('traveloop_user');
+        window.location.href = 'index.html';
+      }
+
+      // Load Trips
+      let trips = JSON.parse(localStorage.getItem('traveloop_trips') || '[]');
+      
+      // If no trips, seed an example trip
+      if (trips.length === 0) {
+        trips = [{
+          id: 'example-trip-1',
+          name: 'Summer in Europe',
+          startDate: '2026-06-14',
+          endDate: '2026-06-29',
+          description: 'A grand tour across historical sites.'
+        }];
+        localStorage.setItem('traveloop_trips', JSON.stringify(trips));
+        
+        const exampleStops = [
+          {id: 'stop1', city: 'Rome, Italy', arrival: '2026-06-14', departure: '2026-06-19', budget: 1500},
+          {id: 'stop2', city: 'Paris, France', arrival: '2026-06-19', departure: '2026-06-25', budget: 2200},
+          {id: 'stop3', city: 'London, UK', arrival: '2026-06-25', departure: '2026-06-29', budget: 1700}
+        ];
+        localStorage.setItem('traveloop_stops_example-trip-1', JSON.stringify(exampleStops));
+      }
+
+      const tripListEl = document.getElementById('tripList');
+      let totalBudget = 0;
+
+      trips.forEach(trip => {
+        const tripStops = JSON.parse(localStorage.getItem(`traveloop_stops_${trip.id}`) || '[]');
+        const tripBudget = tripStops.reduce((sum, stop) => sum + Number(stop.budget || 0), 0);
+        totalBudget += tripBudget;
+
+        tripListEl.innerHTML += `
+          <div class="col-md-6 mb-4">
+            <div class="card overflow-hidden shadow-hover border-0 h-100"> 
+              <img class="card-img-top" src="assets/img/dest/dest1.jpg" alt="Destination" style="height: 200px; object-fit: cover;" />
+              <div class="card-body py-4 px-3">
+                <div class="d-flex justify-content-between mb-3">
+                  <h4 class="text-secondary fw-medium"><a class="link-900 text-decoration-none stretched-link" href="itinerary.html?id=${trip.id}">${trip.name}</a></h4>
+                  <span class="fs-0 fw-medium bg-info text-white px-2 py-1 rounded" style="z-index: 2;">$${tripBudget}</span>
+                </div>
+                <p class="fs--1 text-secondary mb-3">${trip.startDate} - ${trip.endDate}</p>
+                <div class="d-flex align-items-center justify-content-between"> 
+                  <span class="fs--1 fw-medium"><img src="assets/img/dest/navigation.svg" class="me-2" width="16" alt="navigation" />${tripStops.length} Stops</span>
+                  <div class="d-flex gap-2">
+                    <a href="itinerary.html?id=${trip.id}" class="btn btn-sm btn-outline-secondary" style="position: relative; z-index: 2;">View Itinerary</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      document.getElementById('totalBudgetPlanned').innerText = `$${totalBudget.toLocaleString()}`;
+    </script>
+  </body>
+</html>
